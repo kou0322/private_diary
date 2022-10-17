@@ -24,58 +24,50 @@
   </head>
 
   <body>
-	<div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">S
-          <div class="container px-5">
-            <a class="navbar-brand">PRIVATE BLOG</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-              <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                  <a class="nav-link {% block active_inquiry %}{% endblock %}" href="{% url 'blog:bloginquiry' %}">BLOG</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'diary:index' %}">DIARY</a>
-                </li>
-              </ul>
-              <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Sign Up</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Log In</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+    <div id="wrapper">
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container px-5">
+          <a class="navbar-brand" href = '/blog/'>PRIVATE BLOG</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link {% block active_inquiry %}{% endblock %}" href="/blog/bloginquiry/">BLOG</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'diary:index' %}">DIARY</a>
+            </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'account_logout' %}">Log Out</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                  <a class="nav-link {% block active_signup %}{% endblock %}" href="{% url 'account_signup' %}">Sign Up</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link {% block active_login %}{% endblock %}" href="{% url 'account_login' %}">Log In</a>
+              </li>
+              {% endif %}
+          </ul>
+      </div>
+  </div>
+</nav>
 
-        {% block header%}{% endblock %}
+      {% block header%}{% endblock %}
 
-        {% if messages %}
-          <div class="container my-div-style">
-              <div class="row">
-                  <ul class="messages" style="list-style: none;">
-                      {% for message in messages %}
-                      <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-                          {{ message }}
-                      </li>
-                      {% endfor %}
-                  </ul>          
-              </div>
-          </div>
-        {% endif %}
+      {% block contents%}{% endblock %}
 
-        {% block contents%}{% endblock %}
+      <!-- Footer -->
+      <footer class="py-5 bg-black">
+        <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; Private Blog 2022</p></div>
+      </footer>
 
-        <!-- Footer -->
-        <footer class="py-5 bg-black">
-          <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; Private Blog 2022</p></div>
-        </footer>
-
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-  	</div>
+      <!-- Bootstrap core JS-->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
   </body>
 </html>
